@@ -1,3 +1,6 @@
+(add-load-path ".")
+(load "lexical-address")
+
 (define parse-expression
   (lambda (datum)
     (cond
