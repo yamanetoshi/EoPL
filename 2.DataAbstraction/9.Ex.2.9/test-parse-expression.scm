@@ -30,6 +30,9 @@
 (test* "cddr is null"
        (test-error)
        (parse-expression '(lambda ())))
+(test* "normal case"
+       '(lambda-exp (x) (free-info a))
+       (parse-expression '(lambda (x) a)))
 
 (test-section "app-exp")
 (test* "cdr is null"
