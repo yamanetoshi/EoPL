@@ -3,9 +3,9 @@
 
 (define occurs-free?
   (lambda (var exp)
-    (cases lexical-address exp
+    (cases expression exp
 	   (lit-exp (datum) #t)
-	   (var-exp (id) (eqv? var id))
+	   (var-exp (id) (eqv? id var))
 	   (if-exp (test-exp true-exp false-exp)
 		   (or (occurs-free? var test-exp)
 		       (occurs-free? var true-exp)
@@ -13,6 +13,9 @@
 	   (lambda-exp (id body)
 		       (and (not (eqv? id var))
 			    (occurs-free? var body)))
+	   (primapp-exp (prim rand1 rand2)
+			(or (occurs-free? var rand1)
+			    (occurs-free? var rand2)))
 	   (app-exp (rator rand)
 		    (or (occurs-free? var rator)
 			(occurs-free? var rand))))))
